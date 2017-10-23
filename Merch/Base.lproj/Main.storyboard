@@ -62,7 +62,7 @@
                                     <outlet property="delegate" destination="gpw-84-6nT" id="Eyr-wc-HTt"/>
                                 </connections>
                             </tableView>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U5x-7W-TPb">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U5x-7W-TPb">
                                 <rect key="frame" x="0.0" y="577" width="375" height="90"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Şu anda x mağazasındasınız" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qeL-sT-7rY">
@@ -92,14 +92,27 @@
                                     <constraint firstAttribute="height" constant="90" id="zwM-wG-HDE"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tMW-RI-4AK">
+                                <rect key="frame" x="295" y="497" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="XHu-P7-67z"/>
+                                    <constraint firstAttribute="width" constant="60" id="bOB-Dg-Kqp"/>
+                                </constraints>
+                                <state key="normal" title="Sign Out"/>
+                                <connections>
+                                    <action selector="signOutButtonPressed:" destination="gpw-84-6nT" eventType="touchUpInside" id="PPk-D7-4Ps"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Kqm-FM-yEA" firstAttribute="leading" secondItem="LlV-Er-ccZ" secondAttribute="leading" id="1un-HO-vCX"/>
                             <constraint firstItem="Kqm-FM-yEA" firstAttribute="trailing" secondItem="LlV-Er-ccZ" secondAttribute="trailing" id="7mX-zV-6Ac"/>
+                            <constraint firstItem="LlV-Er-ccZ" firstAttribute="trailing" secondItem="tMW-RI-4AK" secondAttribute="trailing" constant="20" id="JaI-7h-3vP"/>
                             <constraint firstItem="Kqm-FM-yEA" firstAttribute="top" secondItem="LlV-Er-ccZ" secondAttribute="top" id="LBO-LU-bXW"/>
                             <constraint firstItem="U5x-7W-TPb" firstAttribute="leading" secondItem="LlV-Er-ccZ" secondAttribute="leading" id="Vll-Gk-W19"/>
                             <constraint firstItem="Kqm-FM-yEA" firstAttribute="bottom" secondItem="LlV-Er-ccZ" secondAttribute="bottom" id="aWD-Gb-WEv"/>
+                            <constraint firstItem="U5x-7W-TPb" firstAttribute="top" secondItem="tMW-RI-4AK" secondAttribute="bottom" constant="20" id="b0F-2s-ykI"/>
                             <constraint firstItem="U5x-7W-TPb" firstAttribute="trailing" secondItem="LlV-Er-ccZ" secondAttribute="trailing" id="hHb-Gl-oXk"/>
                             <constraint firstItem="U5x-7W-TPb" firstAttribute="bottom" secondItem="LlV-Er-ccZ" secondAttribute="bottom" id="q4C-Am-LH2"/>
                         </constraints>
@@ -109,9 +122,11 @@
                     <connections>
                         <outlet property="nowVisitingStore" destination="qeL-sT-7rY" id="3aZ-BC-NJf"/>
                         <outlet property="nowVisitingView" destination="U5x-7W-TPb" id="mYg-iA-S2n"/>
+                        <segue destination="GSt-W1-iKm" kind="unwind" identifier="returnLoginView" unwindAction="unwindLoginViewWithSegue:" id="l4J-ls-Lrk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bTe-OL-qc4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="GSt-W1-iKm" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1530.4000000000001" y="40.029985007496258"/>
         </scene>
@@ -306,7 +321,7 @@
         <!--Login View Controller-->
         <scene sceneID="jPS-g1-EiI">
             <objects>
-                <viewController id="oZQ-3m-YWs" customClass="LoginViewController" customModule="Merch" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginVC" id="oZQ-3m-YWs" customClass="LoginViewController" customModule="Merch" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sUA-WE-6gc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

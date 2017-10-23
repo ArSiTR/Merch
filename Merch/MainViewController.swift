@@ -147,8 +147,19 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         return cell
     }
+    
 
-
+    @IBAction func signOutButtonPressed(_ sender: UIButton) {
+        
+        UserDefaults.standard.set("-", forKey: "authToken")
+        
+        DispatchQueue.main.async {
+            self.performSegue(withIdentifier: "returnLoginView", sender: self)
+        }
+        
+        
+    }
+    
 }
 
 
