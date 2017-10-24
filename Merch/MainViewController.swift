@@ -19,6 +19,13 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet var nowVisitingView: UIView!
     @IBOutlet var helloLabel: UILabel!
     
+    //Test Func için?
+    var routesArray = [RoutePlan]()
+    
+    var routeDictionary = [String: [RoutePlan]]()
+    var routeSectionTitles = [String]()
+    var routesArrayLast = [RoutePlan]()
+    
     var authToken: String = "" {
         didSet {
             checkRoutes(token: authToken)
@@ -61,9 +68,10 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         let data = NSData.init(contentsOf: url!)
         
         
-        var routesArray = [RoutePlan]()
+        //var routesArray = [RoutePlan]()
         
         let json = JSON(data)
+        
         
         print(json["data"]["data"])
         
@@ -81,9 +89,27 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             
         }
         
+        for route in routesArray {
+            let routeDate = String(route.date)
+            if var routeDateValue = routeDictionary[routeDate] {
+                routeDateValue.append(route)
+                routeDictionary[routeDate] = routeDateValue
+            } else {
+                routeDictionary[routeDate] = [route]
+            }
+        }
+        
+        routeSectionTitles = [String](routeDictionary.keys)
+        routeSectionTitles = routeSectionTitles.sorted(by: { $0 < $1 })
+        
         
         //let a = routesArray.sort(by: { $0.start_time > $1.start_time })
-        let b = routesArray.sorted(by: {$0.dateAndTime < $1.dateAndTime})
+        let b = routesArray.sorted(by:
+        {
+            ($0.date, $0.start_time) <
+                ($1.date, $1.start_time)
+            
+        })
         b.forEach { a in
             print(a)
             
@@ -187,21 +213,38 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     //MARK: TableView
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        //return 1
+        return routeSectionTitles.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sampleStoreData.count
+        //return sampleStoreData.count
+        let routeKey = routeSectionTitles[section]
+        if let routeValue = routeDictionary[routeKey] {
+            return routeValue.count
+        }
+        
+        return 0
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 
-        switch section {
+        /*switch section {
         case 0:
             return "Bugünün Ziyaretleri"
         default:
             return nil
+        }*/
+        var dateTitle = ""
+        let dateRawArray : [String] = routeSectionTitles[section].components(separatedBy: "-")
+        
+        if dateRawArray.count == 3 {
+            dateTitle = dateRawArray[2] + "/" + dateRawArray[1] + "/" + dateRawArray[0]
         }
+        
+        
+        
+        return dateTitle
         
     }
     
@@ -211,7 +254,12 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         //cell.storeName.text = storeData[indexPath.row]["storeName"] as String!
         //cell.workingTime.text = storeData[indexPath.row]["staringTime"]! + "-" + storeData[indexPath.row]["endingTime"]!
         
-        cell.storeData = sampleStoreData[indexPath.row]
+        //cell.storeData = sampleStoreData[indexPath.row]
+        
+        let rotueDateKey = routeSectionTitles[indexPath.section]
+        if let routeValues = routeDictionary[rotueDateKey] {
+            cell.routeData = routeValues[indexPath.row]
+        }
         
         return cell
     }

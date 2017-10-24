@@ -13,12 +13,11 @@ class MainTableViewCell: UITableViewCell {
     @IBOutlet var storeName: UILabel!
     @IBOutlet var workingTime: UILabel!
     
-    var storeData:[String:String] = [:] {
-        didSet{
-            storeName.text = storeData["storeName"] as String!
-            workingTime.text = storeData["staringTime"]! + "-" + storeData["endingTime"]!
-            
-            print("setted")
+    var routeData:RoutePlan? {
+        didSet
+        {
+            storeName.text = routeData!.store.store_name
+            workingTime.text = routeData!.start_time + "-" + routeData!.end_time
         }
     }
     

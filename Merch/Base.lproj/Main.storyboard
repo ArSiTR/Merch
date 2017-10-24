@@ -42,7 +42,7 @@
                                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5M Umraniye AVM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IIJ-im-K9r">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5M Umraniye AVM" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IIJ-im-K9r">
                                                     <rect key="frame" x="16" y="13" width="142" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -52,9 +52,10 @@
                                             <constraints>
                                                 <constraint firstItem="IIJ-im-K9r" firstAttribute="baseline" secondItem="o9b-Bu-eYW" secondAttribute="baseline" id="7VJ-gi-IEi"/>
                                                 <constraint firstItem="IIJ-im-K9r" firstAttribute="leading" secondItem="UVS-dm-Omx" secondAttribute="leadingMargin" constant="8" id="83d-Hh-kdH"/>
-                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="IIJ-im-K9r" secondAttribute="trailingMargin" id="8CP-B0-ejq"/>
                                                 <constraint firstItem="o9b-Bu-eYW" firstAttribute="trailing" secondItem="UVS-dm-Omx" secondAttribute="trailingMargin" constant="8" id="G3K-qc-8b7"/>
+                                                <constraint firstItem="o9b-Bu-eYW" firstAttribute="centerY" secondItem="UVS-dm-Omx" secondAttribute="centerY" id="SfX-dI-BmB"/>
                                                 <constraint firstItem="IIJ-im-K9r" firstAttribute="centerY" secondItem="UVS-dm-Omx" secondAttribute="centerY" id="kxp-la-tEX"/>
+                                                <constraint firstItem="o9b-Bu-eYW" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="IIJ-im-K9r" secondAttribute="trailing" constant="8" id="mRT-1a-gge"/>
                                                 <constraint firstItem="o9b-Bu-eYW" firstAttribute="leading" secondItem="UVS-dm-Omx" secondAttribute="leadingMargin" constant="254" id="ssS-bK-cjJ"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -112,7 +113,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="LlV-Er-ccZ"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Bugün" id="iLv-dg-qOB">
+                    <navigationItem key="navigationItem" title="Rut Planım" id="iLv-dg-qOB">
                         <barButtonItem key="leftBarButtonItem" style="plain" id="4iu-Nc-650">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="z1k-Ry-dAB">
                                 <rect key="frame" x="16" y="7" width="61" height="30"/>
