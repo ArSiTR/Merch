@@ -11,16 +11,42 @@ import Alamofire
 import SwiftyJSON
 import SwiftLocation
 import CoreLocation
+import Default
 
 class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet var nowVisitingStore: UILabel!
     @IBOutlet var nowVisitingView: UIView!
+    @IBOutlet var helloLabel: UILabel!
+    
+    var authToken: String = "" {
+        didSet {
+            checkRoutes(token: authToken)
+        }
+    }
+    
+    var userProfileData: UserProfile? {
+        didSet {
+            self.helloLabel.text = "Merhaba, \(userProfileData!.firstname)"
+        }
+    }
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        checkRoutes()
+        if let tokenData = UserDefaults.standard.df.fetch(forKey: key_authToken, type: AuthToken.self) {
+            
+            self.authToken = tokenData.authToken
+            
+        }
+        
+        if let userProfile = UserDefaults.standard.df.fetch(forKey: key_userProfile, type: UserProfile.self) {
+            
+            self.userProfileData = userProfile
+            
+        }
         
         let magazaLocation = CLLocation(latitude: 50.0, longitude: 0.15)
         
@@ -53,39 +79,54 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         
     }
     
-    func checkRoutes()  {
+    func checkRoutes(token : String)  {
         
-        if let authToken = UserDefaults.standard.string(forKey: "authToken") {
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(token)",
+            "Accept": "application/json"
+        ]
+        
+        Alamofire.request(URL_API_routes, headers: headers).responseJSON { response in
             
-            let headers: HTTPHeaders = [
-                "Authorization": "Bearer \(authToken)",
-                "Accept": "application/json"
-            ]
-            
-            Alamofire.request(URL_API_routes, headers: headers).responseJSON { response in
-
-                if response.error == nil {
-                    let json = JSON(response.result.value!)
+            if response.error == nil {
+                let json = JSON(response.result.value!)
+                
+                if json["status_code"].double == 0 {
                     
-                    if json["status_code"].double == 0 {
-                        
-                        print(json)
-                        
-                        
-                    } else {
-                        print(json)
-                    }
+                    print(json)
+                    
                     
                 } else {
-                    print(response.error!)
+                    print(json)
                 }
                 
-                
+            } else {
+                print(response.error!)
             }
-            
         }
+    }
+    
+
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    @IBAction func workingStoreDetail(_ sender: UIButton) {
         
     }
+    
+    func resetAuthToken() {
+        
+        let token = AuthToken(authToken: "-")
+        
+        UserDefaults.standard.df.store(token, forKey: key_authToken)
+        
+    }
+    
+    
+    // MARK: Location Manager
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let userLocation:CLLocation = locations[0] as CLLocation
@@ -104,19 +145,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         print("Error \(error)")
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    @IBAction func workingStoreDetail(_ sender: UIButton) {
-        
-    }
-    
-    //TableView
+    //MARK: TableView
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -151,11 +180,11 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     @IBAction func signOutButtonPressed(_ sender: UIButton) {
         
-        UserDefaults.standard.set("-", forKey: "authToken")
+        /////
         
-        DispatchQueue.main.async {
-            self.performSegue(withIdentifier: "returnLoginView", sender: self)
-        }
+        resetAuthToken()
+        
+        performSegue(withIdentifier: "returnLoginView", sender: self)
         
         
     }

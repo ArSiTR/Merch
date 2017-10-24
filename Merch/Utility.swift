@@ -14,3 +14,7 @@ let URL_API_login =     serverURL + "/api/v1/"    + "auth/login"
 let URL_API_profile =   serverURL + "/api/v1/"    + "profile"
 let URL_API_routes =    serverURL + "/api/v1/"    + "route"
 
+
+
+let key_authToken = "authToken"
+let key_userProfile = "userProfile"

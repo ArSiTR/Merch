@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import Default
 
 class LoginViewController: UIViewController {
 
@@ -16,65 +17,70 @@ class LoginViewController: UIViewController {
     @IBOutlet var passwordTextField: UITextField!
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
-        
-        
-        
-        //print(UserDefaults.standard.dictionary(forKey: "userProfile"))
-        
-        /*if let userProfile = UserDefaults.standard.dictionary(forKey: "userProfile") {
-            
-            print(userProfile["firstname"])
-            
-            //userProfile["firstname"]
-            
-            
-        } */
         
         // Do any additional setup after loading the view.
         
         checkAuthToken()
         
-        
     }
     
     func checkAuthToken() {
-
-        if let authToken = UserDefaults.standard.string(forKey: "authToken") {
+        
+        if let authTokenData = UserDefaults.standard.df.fetch(forKey: key_authToken, type: AuthToken.self) {
             
-            print(authToken)
+            let authToken = authTokenData.authToken
             
-            let headers: HTTPHeaders = [
-                "Authorization": "Bearer \(authToken)",
-                "Accept": "application/json"
-            ]
-            
-            Alamofire.request(URL_API_profile, headers: headers).responseJSON { response in
+            if authToken != "-" {
                 
-                if response.error == nil {
-                    let json = JSON(response.result.value!)
+                let headers: HTTPHeaders = [
+                    "Authorization": "Bearer \(authToken)",
+                    "Accept": "application/json"
+                ]
+                
+                Alamofire.request(URL_API_profile, headers: headers).responseJSON { response in
                     
-                    if json["status_code"].double == 0 {
-                        let userProfile = json["data"].dictionaryObject
+                    if response.error == nil {
+                        let json = JSON(response.result.value!)
                         
-                        UserDefaults.standard.set(userProfile, forKey: "userProfile")
-                        
-                        if json["data"]["user_type"] == "MERCH" {
-                            self.performSegue(withIdentifier: "loginMerch", sender: self)
+                        if json["status_code"].double == 0 {
+                            
+                            
+                            //Buralar hep değişecek!!!
+                            let userProfile = UserProfile(id: json["data"]["id"].intValue,
+                                                          firstname: json["data"]["firstname"].stringValue,
+                                                          lastname: json["data"]["lastname"].stringValue,
+                                                          email: json["data"]["email"].stringValue,
+                                                          company_id: json["data"]["company_id"].intValue,
+                                                          user_type: json["data"]["user_type"].stringValue,
+                                                          status: json["data"]["status"].stringValue)
+                            
+                            UserDefaults.standard.df.store(userProfile, forKey: key_userProfile)
+                            
+                            if userProfile.status == "ACTIVE" && userProfile.user_type == "MERCH" {
+                            
+                                self.performSegue(withIdentifier: "loginMerch", sender: self)
+                                
+                            } else {
+                                // TO-DO
+                                self.resetAuthToken()
+                            }
+                            
                         } else {
-                            // TO-DO
-                            UserDefaults.standard.set("", forKey: "authToken")
+                            print(json)
+                            self.resetAuthToken()
                         }
                         
                     } else {
-                        print(json)
+                        print(response.error!)
+                        self.resetAuthToken()
                     }
                     
-                } else {
-                    print(response.error!)
+                    
                 }
                 
-
+                
             }
             
         }
@@ -98,11 +104,14 @@ class LoginViewController: UIViewController {
         
             if response.error == nil {
                 let json = JSON(response.result.value!)
-                
                 if json["error_code"].double == 0 {
                     
                     let token = json["data"]["token"].string
-                    UserDefaults.standard.set(token, forKey: "authToken")
+                    
+                    
+                    let tokenStored = AuthToken(authToken: token ?? "")
+                    
+                    UserDefaults.standard.df.store(tokenStored, forKey: key_authToken)
                     
                     DispatchQueue.main.async {
                         self.checkAuthToken()
@@ -132,6 +141,14 @@ class LoginViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    func resetAuthToken() {
+        
+        let token = AuthToken(authToken: "-")
+        
+        UserDefaults.standard.df.store(token, forKey: key_authToken)
+        
+    }
     
     @IBAction func unwindLoginView(segue:UIStoryboardSegue) { }
 

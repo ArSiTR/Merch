@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Default
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,6 +19,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         //FIRApp.configure()
+        
+        if let authTokenData = UserDefaults.standard.df.fetch(forKey: key_authToken, type: AuthToken.self) {
+            
+            if authTokenData.authToken != "-" {
+                self.window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainNavigationController") as? UIViewController
+            }
+            
+        }
+        
         
         return true
     }
