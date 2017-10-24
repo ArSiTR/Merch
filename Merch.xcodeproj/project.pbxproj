@@ -24,6 +24,7 @@
 		B6BF9A191F8006A70040A228 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6BF9A171F8006A70040A228 /* Main.storyboard */; };
 		B6BF9A1B1F8006A70040A228 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B6BF9A1A1F8006A70040A228 /* Assets.xcassets */; };
 		B6BF9A1E1F8006A70040A228 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6BF9A1C1F8006A70040A228 /* LaunchScreen.storyboard */; };
+		B6F1944B1F9F8B8A007F2C63 /* Data.json in Resources */ = {isa = PBXBuildFile; fileRef = B6F1944A1F9F8B89007F2C63 /* Data.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,7 @@
 		B6BF9A1A1F8006A70040A228 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B6BF9A1D1F8006A70040A228 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B6BF9A1F1F8006A70040A228 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B6F1944A1F9F8B89007F2C63 /* Data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Data.json; sourceTree = "<group>"; };
 		EBABE3221B0C08151D7C0B4A /* Pods-Merch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Merch.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Merch/Pods-Merch.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -107,6 +109,7 @@
 				B6B093571F8A4C61003C2ACE /* Utility.swift */,
 				B6672F9A1F8BFF9300FB7A30 /* Struct.swift */,
 				B6BF9A1C1F8006A70040A228 /* LaunchScreen.storyboard */,
+				B6F1944A1F9F8B89007F2C63 /* Data.json */,
 				B6BF9A1F1F8006A70040A228 /* Info.plist */,
 			);
 			path = Merch;
@@ -191,6 +194,7 @@
 				B6BF9A1E1F8006A70040A228 /* LaunchScreen.storyboard in Resources */,
 				B6BF9A1B1F8006A70040A228 /* Assets.xcassets in Resources */,
 				B6BF9A191F8006A70040A228 /* Main.storyboard in Resources */,
+				B6F1944B1F9F8B8A007F2C63 /* Data.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

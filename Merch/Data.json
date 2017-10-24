@@ -1,0 +1,52 @@
+{
+    "status_code": 0,
+    "data": {
+        "cache_key": "a00ac45c1e84d7e3c222c6fe5a814c1f",
+        "data": [
+                 {
+                 "date": "2017-10-23",
+                 "start_time": "08:00",
+                 "end_time": "16:00",
+                 "data": {
+                 "store_id": 4,
+                 "store_name": "Balkon Cafe",
+                 "store_lat": 41.09024,
+                 "store_long": 28.914063
+                 }
+                 },
+                 {
+                 "date": "2017-10-23",
+                 "start_time": "12:00",
+                 "end_time": "19:00",
+                 "data": {
+                 "store_id": 6,
+                 "store_name": "Kanyon - Levent",
+                 "store_lat": 41.077841,
+                 "store_long": 29.010448
+                 }
+                 },
+                 {
+                 "date": "2017-10-24",
+                 "start_time": "09:00",
+                 "end_time": "12:00",
+                 "data": {
+                 "store_id": 5,
+                 "store_name": "Yıldız Teknik Üniversitesi - Teknopark",
+                 "store_lat": 41.020003,
+                 "store_long": 28.88958
+                 }
+                 },
+                 {
+                 "date": "2017-10-24",
+                 "start_time": "12:00",
+                 "end_time": "19:00",
+                 "data": {
+                 "store_id": 6,
+                 "store_name": "Kanyon - Levent",
+                 "store_lat": 41.077841,
+                 "store_long": 29.010448
+                 }
+                 }
+                 ]
+    }
+}

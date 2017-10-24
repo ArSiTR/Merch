@@ -46,6 +46,59 @@ struct UserProfile: Codable {
     
 }
 
+struct StoreDataRoute: Codable {
+    
+    let store_id: Int
+    let store_name: String
+    let store_lat: String
+    let store_long: String
+    
+    init(store_id: Int, store_name: String, store_lat: String, store_long: String) {
+        self.store_id = store_id
+        self.store_name = store_name
+        self.store_lat = store_lat
+        self.store_long = store_long
+    }
+    
+}
+
+struct RoutePlan: Codable {
+    let date: String
+    let start_time: String
+    let end_time: String
+    let dateAndTime: String
+    let store: StoreDataRoute
+    
+    init(date: String, start_time: String, end_time: String, dateAndTime: String, store: StoreDataRoute) {
+        self.date = date
+        self.start_time = start_time
+        self.end_time = end_time
+        self.dateAndTime = dateAndTime
+        self.store = store
+        
+    }
+}
+
+
+extension testUser: Decodable {
+    enum MyStructKeys: String, CodingKey { // declaring our keys
+        case id = "id"
+        case username = "username"
+        case email = "email"
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: MyStructKeys.self) // defining our (keyed) container
+        let id: Int = try container.decode(Int.self, forKey: .id) // extracting the data
+        let username: String = try container.decode(String.self, forKey: .username) // extracting the data
+        let email: String = try container.decode(String.self, forKey: .email)
+        
+        self.init(id: id, username: username, email: email) // initializing our struct
+    }
+    
+    
+}
+
 /*extension UserProfile: Decodable {
     enum UserProfileStructKeys: String, CodingKey {
         case id = "id"
@@ -85,23 +138,4 @@ struct testUser {
         self.username = username
         self.email = email
     }
-}
-
-extension testUser: Decodable {
-    enum MyStructKeys: String, CodingKey { // declaring our keys
-        case id = "id"
-        case username = "username"
-        case email = "email"
-    }
-    
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: MyStructKeys.self) // defining our (keyed) container
-        let id: Int = try container.decode(Int.self, forKey: .id) // extracting the data
-        let username: String = try container.decode(String.self, forKey: .username) // extracting the data
-        let email: String = try container.decode(String.self, forKey: .email)
-        
-        self.init(id: id, username: username, email: email) // initializing our struct
-    }
-    
-    
 }

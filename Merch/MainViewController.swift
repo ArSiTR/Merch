@@ -51,6 +51,45 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         let magazaLocation = CLLocation(latitude: 50.0, longitude: 0.15)
         
         checkLocation(magazaLocation: magazaLocation)
+        
+        test()
+    }
+    
+    func test() {
+        
+        let url = Bundle.main.url(forResource: "Data", withExtension: "json")
+        let data = NSData.init(contentsOf: url!)
+        
+        
+        var routesArray = [RoutePlan]()
+        
+        let json = JSON(data)
+        
+        print(json["data"]["data"])
+        
+        let array: [JSON] = json["data"]["data"].arrayValue
+        
+        array.forEach { json in
+            
+            let storeData = StoreDataRoute(store_id: json["data"]["store_id"].intValue, store_name: json["data"]["store_name"].stringValue, store_lat: json["data"]["store_lat"].stringValue, store_long: json["data"]["store_lat"].stringValue)
+            
+            let dateAndTime = "\(json["date"].stringValue) \(json["start_time"].stringValue)-\(json["end_time"].stringValue)"
+            
+            let routes = RoutePlan(date: json["date"].stringValue, start_time: json["start_time"].stringValue, end_time: json["end_time"].stringValue, dateAndTime: dateAndTime, store: storeData)
+            
+            routesArray.append(routes)
+            
+        }
+        
+        
+        //let a = routesArray.sort(by: { $0.start_time > $1.start_time })
+        let b = routesArray.sorted(by: {$0.dateAndTime < $1.dateAndTime})
+        b.forEach { a in
+            print(a)
+            
+        }
+        
+        
     }
     
     func checkLocation(magazaLocation: CLLocation) {
